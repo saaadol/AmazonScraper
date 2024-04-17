@@ -8,6 +8,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
 from tkinter import messagebox
+from datetime import datetime
+
 my_path = os.getcwd()
 keyword = input("Type a keyword to scrape: ")
 class Amazon:
@@ -50,6 +52,7 @@ class Amazon:
                     name = item.find_elements(By.XPATH, './/span[@class="a-size-base-plus a-color-base a-text-normal"]')
                     for n in name:
                         self.name.append(n.text)
+                    self.current_time = datetime.now()  
                 except:
                    self.name.append("None") 
                 try:
@@ -99,7 +102,6 @@ class Amazon:
         for i in range(0, len(self.whole_price)):    
             if (self.fract_price[i] != ""):
                 self.whole_price[i] = self.whole_price[i] + "," + self.fract_price[i] + "$"
-            # print(self.whole_price[i])
         min_length = min(len(self.name), len(self.whole_price), len(self.number_of_reviews), len(self.reviews_rating), len(self.category), len(self.link))
         print("this is min_length ", min_length)
         if len(self.name) > min_length:
@@ -119,6 +121,8 @@ class Amazon:
 
         if len(self.link) > min_length:
             self.link = self.link[:-(len(self.link) - min_length)]
+        if len(self.current_time) > min_length:
+            self.current_time = self.current_time[:-(len(self.current_time) - min_length)]
 
     def saving_data(self):
         data = {
@@ -128,7 +132,7 @@ class Amazon:
             'reviews rating': self.reviews_rating,
             'category': self.category,
             'link': self.link,
-            # 'Date_of_Scrape': self.current_time
+            'Date_of_Scrape': self.current_time
         }
         self.df = pd.DataFrame(data)
         # self.df['Date_of_Scrape'] = pd.to_datetime(self.df['Date_of_Scrape'])

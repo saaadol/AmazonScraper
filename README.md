@@ -4,7 +4,7 @@ This is an Amazon Scraper coded with python, it bypass captcha and store data in
 To install, just run this command to install all required libraries: <br>
 ```pip install -r requirements.txt``` <br>
 Or if you have pip3: <br>
-```pip install -r requirements.txt``` <br>
+```pip3 install -r requirements.txt``` <br>
 ## Usage
 You can use this script just by running the program : <br>
 ```python amazon.py``` <br>
